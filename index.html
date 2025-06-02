@@ -23,6 +23,13 @@
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
+            <div class="theme-toggle" data-aos="fade-down" data-aos-delay="200">
+                <input type="checkbox" class="theme-input" id="theme-toggle">
+                <label for="theme-toggle" class="theme-label">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </label>
+            </div>
             <div class="menu-btn">
                 <div class="menu-btn__burger"></div>
             </div>
@@ -300,20 +307,25 @@
                     <a href="https://github.com/asytrao" target="_blank">See my work</a>
                 </div>
             </div>
-            <form class="contact-form" data-aos="fade-left">
+            <form class="contact-form" id="contact-form">
                 <div class="form-group">
-                    <input type="text" id="name" required>
+                    <input type="text" id="name" name="name" required>
                     <label for="name">Your Name</label>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" required>
                     <label for="email">Your Email</label>
                 </div>
                 <div class="form-group">
-                    <textarea id="message" required></textarea>
+                    <input type="text" id="subject" name="subject" required>
+                    <label for="subject">Subject</label>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required></textarea>
                     <label for="message">Your Message</label>
                 </div>
                 <button type="submit" class="btn primary">Send Message</button>
+                <div id="success-message" class="success-message"></div>
             </form>
         </div>
     </section>
@@ -321,7 +333,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-text">
-                <p>&copy; 2024 Atharv Yeshwantrao. All rights reserved.</p>
+                <p>&copy; 2025 Atharv Yeshwantrao. All rights reserved.</p>
             </div>
             <div class="footer-links">
                 <a href="#home">Home</a>
@@ -339,6 +351,7 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

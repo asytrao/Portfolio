@@ -109,26 +109,76 @@ scrollToTopBtn.addEventListener('click', () => {
     });
 });
 
+// Initialize EmailJS
+(function() {
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+})();
+
 // Form handling
-const contactForm = document.querySelector('.contact-form');
+const contactForm = document.querySelector('#contact-form');
+const successMessage = document.querySelector('#success-message');
 
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
+    // Show loading state
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
     // Get form values
-    const name = document.querySelector('#name').value;
-    const email = document.querySelector('#email').value;
-    const message = document.querySelector('#message').value;
+    const formData = {
+        name: document.querySelector('#name').value,
+        email: document.querySelector('#email').value,
+        subject: document.querySelector('#subject').value,
+        message: document.querySelector('#message').value
+    };
     
-    // Here you would typically send this data to a server
-    // For now, we'll just log it
-    console.log('Form submitted:', { name, email, message });
-    
-    // Clear form
-    contactForm.reset();
-    
-    // Show success message (you can customize this)
-    alert('Thank you for your message! I will get back to you soon.');
+    // Send email using EmailJS
+    emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            to_name: 'Atharv', // Your name
+            to_email: 'yeshwantraoatharv@gmail.com' // Your email
+        }
+    ).then(
+        function(response) {
+            // Show success message
+            successMessage.textContent = 'Thank you for your message! I will get back to you soon.';
+            successMessage.classList.add('show');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        },
+        function(error) {
+            // Show error message
+            successMessage.textContent = 'Oops! Something went wrong. Please try again later.';
+            successMessage.style.background = '#fee2e2';
+            successMessage.style.color = '#dc2626';
+            successMessage.classList.add('show');
+            
+            // Reset button
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            console.error('EmailJS Error:', error);
+        }
+    );
 });
 
 // Skill progress animation
@@ -173,4 +223,24 @@ projectCards.forEach(card => {
             link.style.opacity = '0';
         });
     });
+});
+
+// Theme Switcher
+const themeToggle = document.querySelector('#theme-toggle');
+const body = document.querySelector('body');
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+themeToggle.checked = savedTheme === 'dark';
+
+// Theme toggle handler
+themeToggle.addEventListener('change', () => {
+    if (themeToggle.checked) {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }
 });

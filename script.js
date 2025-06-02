@@ -41,7 +41,7 @@ menuBtn.addEventListener('click', () => {
         navLinks.style.top = '100%';
         navLinks.style.left = '0';
         navLinks.style.width = '100%';
-        navLinks.style.background = 'white';
+        navLinks.style.background = document.body.getAttribute('data-theme') === 'dark' ? '#1e293b' : 'white';
         navLinks.style.padding = '1rem';
         navLinks.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         menuOpen = true;
@@ -111,7 +111,7 @@ scrollToTopBtn.addEventListener('click', () => {
 
 // Initialize EmailJS
 (function() {
-    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+    emailjs.init("aVhWsX56q683t5MeP");
 })();
 
 // Form handling
@@ -137,15 +137,15 @@ contactForm.addEventListener('submit', (e) => {
     
     // Send email using EmailJS
     emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        'service_q6skxxr',
+        'template_gy6ehzo',
         {
             from_name: formData.name,
             from_email: formData.email,
             subject: formData.subject,
             message: formData.message,
-            to_name: 'Atharv', // Your name
-            to_email: 'yeshwantraoatharv@gmail.com' // Your email
+            to_name: 'Atharv',
+            to_email: 'yeshwantraoatharv@gmail.com'
         }
     ).then(
         function(response) {
@@ -227,10 +227,10 @@ projectCards.forEach(card => {
 
 // Theme Switcher
 const themeToggle = document.querySelector('#theme-toggle');
-const body = document.querySelector('body');
+const body = document.body;
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme') || 'light';
+// Check for saved theme preference, default to dark
+const savedTheme = localStorage.getItem('theme') || 'dark';
 body.setAttribute('data-theme', savedTheme);
 themeToggle.checked = savedTheme === 'dark';
 
